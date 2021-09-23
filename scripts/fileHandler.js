@@ -1,5 +1,6 @@
 const fileUploadElement = document.getElementById("fileUploadElement");
 const feedbackElement = document.getElementById("feedback");
+const tableHolder = document.getElementById("tableHolder");
 
 var colors = [
     '#28AFB0',
@@ -42,6 +43,7 @@ function parseData(content) {
     feedbackElement.innerText = "Read file with " + entries.length + " entries";
 
     showGraph(getLabels(entries), getDatasets(entries));
+    showTable(getLabels(entries), getDatasets(entries));
 }
 
 function getLabels(entries) {
@@ -84,7 +86,6 @@ function getData(key, entries) {
 }
 
 function getKeysOfNumericTrackers(entries) {
-    console.log("Reading keys...")
     var set = new Set();
 
     for (let index = 0; index < entries.length; index++) {
@@ -124,5 +125,89 @@ function showGraph(labels, datasets) {
         document.getElementById("graph"),
         config
     )
+}
+
+function showTable(labels, datasets) {
+    var table = document.createElement('table');
+    table.classList.add("table");
+
+    var thead = document.createElement('thead');
+
+    var topRow = document.createElement('tr');
+
+    var thKey = document.createElement('th');
+    thKey.innerText = "Field";
+    var thAvg = document.createElement('th');
+    thAvg.innerText = "Average";
+    var thMax = document.createElement('th');
+    thMax.innerText = "Max";
+    var thAm = document.createElement('th');
+    thAm.innerText = "Amount of Entries"
+
+    thead.appendChild(topRow);
+    topRow.appendChild(thKey);
+    topRow.appendChild(thAvg);
+    topRow.appendChild(thMax);
+    topRow.appendChild(thAm);
+
+    table.appendChild(thead);
+
+    //Iterate through all data entries
+    console.log(datasets);
+
+    var tbody = document.createElement('tbody');
+
+    datasets.forEach(entry => {
+        var tempRow = document.createElement('tr');
+        var tempKey = document.createElement('th');
+        var tempAverage = document.createElement('td');
+        var tempMax = document.createElement('td');
+        var tempAmount = document.createElement('td');
+
+        tempKey.innerText = entry.label;
+
+        var max = Number.MIN_SAFE_INTEGER;
+        var avg = 0;
+        var amount = 0;
+
+
+        for (let index = 0; index < entry.data.length; index++) {
+            const dataEntry = entry.data[index];
+            if(typeof(dataEntry) != 'undefined') {
+                avg += dataEntry;
+                if (max < dataEntry) {
+                    max = dataEntry;
+                }
+                amount++;
+            }
+
+        }
+
+        avg /= amount;
+        tempAmount.innerText = amount;
+
+
+        tempMax.innerText = max;
+        tempAverage.innerText = avg.toFixed(2);
+
+        tempRow.appendChild(tempKey);
+        tempRow.appendChild(tempAverage);
+        tempRow.appendChild(tempMax);
+        tempRow.appendChild(tempAmount);
+        tbody.appendChild(tempRow);
+    });
+
+    table.appendChild(tbody);
+
+
+
+    //Delete all children
+    for (let index = 0; index < tableHolder.children.length; index++) {
+        const element = tableHolder.children[index];
+        tableHolder.remove(element);
+
+    }
+
+    tableHolder.appendChild(table);
 }
 
