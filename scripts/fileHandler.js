@@ -23,7 +23,7 @@ fileUploadElement.addEventListener("change", (e) => {
     reader.readAsText(file);
 });
 
-function parseData(content){
+function parseData(content) {
     const obj = JSON.parse(content);
     console.log("Handling content... ", obj);
 }
