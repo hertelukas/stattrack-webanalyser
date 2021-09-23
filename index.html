@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stat Trak Analyser</title>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
 
     <!-- Stylesheets -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
@@ -28,12 +29,13 @@
     </div>
 
     <div class="container">
-
-        <input class="btn" type="file" name="" id="fileUploadElement" accept="text/*,.json">
+        <h1>Analyse</h1>
+        <br>
+        <input class="form-control" type="file" name="" id="fileUploadElement" accept="text/*,.json">
+        <br>
         <div id="feedback"></div>
         <hr>
         <canvas id="graph"></canvas>
-
     </div>
 
     <script src="scripts/fileHandler.js"></script>

@@ -4,7 +4,9 @@ const feedbackElement = document.getElementById("feedback");
 var colors = [
     '#28AFB0',
     '#9191E9',
-    '#30343F'
+    '#30343F',
+    '#E5446D',
+    '#F8F4E3'
 ]
 
 // This code runs when the user selects a new file
@@ -62,7 +64,8 @@ function getDatasets(entries) {
         var temp = {
             label: key,
             data: getData(key, entries),
-            borderColor: colors[counter]
+            borderColor: colors[counter],
+            backgroundColor: colors[counter] + "33"
         }
         sets.push(temp);
         counter++;
